@@ -19,6 +19,7 @@ class CreateUserRolesTable extends Migration
             $table->string('type_name_jp', 40);
             $table->string('nice_name', 20);
             $table->boolean('is_active')->default(false);
+            $table->int('priority')->default(8);
             $table->timestamps();
         });
     }
