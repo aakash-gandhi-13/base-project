@@ -9,7 +9,8 @@ class UserRole extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['type_name_en', 'type_name_jp', 'nice_name', 'is_active'];
+    protected $fillable = ['type_name_en', 'type_name_jp', 'nice_name', 'is_active', 
+                            'priority', 'created_at', 'updated_at'];
 
     protected function rules() {
             return collect([
