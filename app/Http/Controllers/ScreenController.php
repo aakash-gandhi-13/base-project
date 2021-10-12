@@ -3,18 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Repositories\UserRoleRepository;
+use App\Repositories\screenRepository;
 
 // Response
 use Illuminate\Http\JsonResponse;
 
-class UserRoleController extends Controller
+class ScreenController extends Controller
 {
-    protected $userRoleRepo;
+    protected $screenRepo;
 
     public function __construct()
     {
-        $this->repository = new UserRoleRepository();
+        $this->repository = new screenRepository();
     }
 
     /**

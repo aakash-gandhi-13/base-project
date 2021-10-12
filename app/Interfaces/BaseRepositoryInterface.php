@@ -3,10 +3,10 @@
 namespace App\Interfaces;
 
 interface BaseRepositoryInterface {
-  public function index($request);
-//   public function create($request);
-//   public function update($request);
-//   public function delete($request);
-//   public function show($request);
+  public function all(); // Get all records
+  public function store($request); // Create new record
+  public function show($id); // Get single record
+  public function update($request,$id); // Update existing record
+  public function delete($id); // Destroy single record
 }
 ?> 

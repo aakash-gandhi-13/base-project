@@ -4,9 +4,9 @@ namespace App\Repositories;
 
 use Illuminate\Http\Request;
 use App\Interfaces\BaseRepositoryInterface;
-use App\Models\UserRole;
+use App\Models\Screen;
 
-class UserRoleRepository implements BaseRepositoryInterface 
+class ScreenRepository implements BaseRepositoryInterface 
 {
     /**
      * @type model
@@ -18,7 +18,7 @@ class UserRoleRepository implements BaseRepositoryInterface
      */
     public function __construct()
     {
-        $this->model = new UserRole();
+        $this->model = new Screen();
     }
 
     /**
