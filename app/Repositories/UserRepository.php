@@ -5,6 +5,7 @@ namespace App\Repositories;
 use Illuminate\Http\Request;
 use App\Interfaces\BaseRepositoryInterface;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class UserRepository implements BaseRepositoryInterface 
 {
@@ -26,6 +27,7 @@ class UserRepository implements BaseRepositoryInterface
      * @return App\Models\User
      */
     public function store($request){
+        $request['password'] = Hash::make($request['password']);
         return User::create($request);
     }
 
