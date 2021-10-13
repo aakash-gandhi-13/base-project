@@ -35,7 +35,7 @@ class UserRoleRepository implements BaseRepositoryInterface
      * @param  int $id
      * @return App\Models\UserRole
      */
-    public function show($id){
+    public function find($id){
         $model = UserRole::findOrFail($id);
         return $model;
     }

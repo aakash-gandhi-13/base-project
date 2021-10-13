@@ -35,7 +35,7 @@ class AccessRepository implements BaseRepositoryInterface
      * @param  int $id
      * @return App\Models\User
      */
-    public function show($id){
+    public function find($id){
         $accessControl = AccessControl::findOrFail($id);
         return $accessControl;
     }

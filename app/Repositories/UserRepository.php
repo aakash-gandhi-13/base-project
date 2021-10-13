@@ -35,7 +35,7 @@ class UserRepository implements BaseRepositoryInterface
      * @param  int $id
      * @return App\Models\User
      */
-    public function show($id){
+    public function find($id){
         $model = User::findOrFail($id);
         return $model;
     }

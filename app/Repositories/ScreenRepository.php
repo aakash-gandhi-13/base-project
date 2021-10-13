@@ -35,7 +35,7 @@ class ScreenRepository implements BaseRepositoryInterface
      * @param  int $id
      * @return App\Models\User
      */
-    public function show($id){
+    public function find($id){
         $screen = Screen::findOrFail($id);
         return $screen;
     }
