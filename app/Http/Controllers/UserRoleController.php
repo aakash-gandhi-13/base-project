@@ -10,7 +10,7 @@ use Illuminate\Http\JsonResponse;
 
 class UserRoleController extends Controller
 {
-    protected $userRoleRepo;
+    protected $repository;
 
     public function __construct()
     {

@@ -10,7 +10,7 @@ use Illuminate\Http\JsonResponse;
 
 class ScreenController extends Controller
 {
-    protected $screenRepo;
+    protected $repository;
 
     public function __construct()
     {
