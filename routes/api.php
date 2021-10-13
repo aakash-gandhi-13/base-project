@@ -6,6 +6,7 @@ use App\Http\Controllers\UserRoleController;
 use App\Http\Controllers\ScreenController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AccessController;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,6 +22,12 @@ use App\Http\Controllers\AccessController;
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     return $request->user();
 // });
+
+// Auth Routes
+Route::post('login', [AuthController::class, 'login']);
+Route::post('register', [AuthController::class, 'register']);
+Route::post('forgot-password', [AuthController::class, 'forgotPassword']);
+Route::post('reset-password', [AuthController::class, 'resetPassword']);
 
 Route::prefix('user_role')->group(function () {
     Route::get('list', [UserRoleController::class, 'index']);
@@ -53,3 +60,5 @@ Route::prefix('accesscontrol')->group(function () {
     Route::put('update/{id}', [AccessController::class, 'update']);
     Route::delete('delete/{id}', [AccessController::class, 'destroy']);
 });
+
+

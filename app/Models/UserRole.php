@@ -12,7 +12,10 @@ class UserRole extends Model
     protected $fillable = ['type_name_en', 'type_name_jp', 'nice_name', 'is_active', 
                             'priority', 'created_at', 'updated_at'];
 
-    
+    const ADMIN = 1;
+    const MANAGER = 2;
+    const MEMBER = 3;
+
     public function user()
     {
         return $this->hasMany(User::class);

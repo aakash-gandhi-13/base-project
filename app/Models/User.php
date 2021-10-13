@@ -49,4 +49,16 @@ class User extends Authenticatable
     {
         return $this->hasMany(Screen::class);
     }
+
+    protected function rules($unique=false)
+    {
+        return collect([
+            'first_name' => 'required|string|max:15',
+            'last_name' => 'required|string|max:15',
+            'email' => 'required|string|email'. (($unique)? "|unique:users" : ''),
+            'phone' => 'required|integer|unique:users',
+            'password'  => 'required',
+            'user_role_id' => 'required|integer'
+        ]);
+    }
 }

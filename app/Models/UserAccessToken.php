@@ -20,6 +20,12 @@ class UserAccessToken extends Model
         'user_id'
     ];
 
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+        'user_id'
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class);
