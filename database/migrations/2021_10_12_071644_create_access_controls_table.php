@@ -17,7 +17,9 @@ class CreateAccessControlsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('screen_id');
             $table->foreign('screen_id')->references('id')->on('screens');
-            $table->morphs('accessable');
+            //$table->morphs('accessable');
+            $table->string('access_type');
+            $table->unsignedBigInteger('access_id');
             $table->boolean('can_access')->default(false);
             $table->timestamps();
         });

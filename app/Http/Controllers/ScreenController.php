@@ -3,18 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Repositories\screenRepository;
-
-// Response
-use Illuminate\Http\JsonResponse;
+use App\Repositories\ScreenRepository;
+use Illuminate\Http\Response;
 
 class ScreenController extends Controller
 {
-    protected $repository;
+    protected $screenRepository;
 
     public function __construct()
     {
-        $this->repository = new screenRepository();
+        $this->screenRepository = new ScreenRepository();
     }
 
     /**
@@ -24,10 +22,8 @@ class ScreenController extends Controller
      */
     public function index()
     {
-        // Get all records
-        $data = $this->repository->all();
-        // Send Response
-        return response()->json($data);
+        $data = $this->screenRepository->all();
+        return response()->json($data, Response::HTTP_OK);
     }
 
     /**
@@ -38,10 +34,8 @@ class ScreenController extends Controller
      */
     public function store(Request $request)
     {
-        // Store new record
-        $data = $this->repository->store($request->all());
-        // Send Response
-        return response()->json($data);
+        $data = $this->screenRepository->store($request->all());
+        return response()->json($data, Response::HTTP_CREATED);
     }
 
     /**
@@ -52,9 +46,8 @@ class ScreenController extends Controller
      */
     public function show($id)
     {
-        // Get single record
-        $data = $this->repository->find((int) $request['id']);
-        return response()->json($data);
+        $data = $this->screenRepository->find((int) $request['id']);
+        return response()->json($data, Response::HTTP_OK);
     }
 
     /**
@@ -66,10 +59,8 @@ class ScreenController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // Update record
-        $data = $this->repository->update($request->all(),$id);
-        // Send Response
-        return response()->json($data);
+        $data = $this->screenRepository->update($request->all(), $id);
+        return response()->json($data, Response::HTTP_OK);
     }
 
     /**
@@ -80,8 +71,7 @@ class ScreenController extends Controller
      */
     public function destroy($id)
     {
-        $data = $this->repository->destroy($id);
-        // Send Response
-        return response()->json($data);
+        $data = $this->screenRepository->destroy($id);
+        return response()->json($data, Response::HTTP_NO_CONTENT);
     }
 }

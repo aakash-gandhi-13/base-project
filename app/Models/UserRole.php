@@ -12,6 +12,12 @@ class UserRole extends Model
     protected $fillable = ['type_name_en', 'type_name_jp', 'nice_name', 'is_active', 
                             'priority', 'created_at', 'updated_at'];
 
+    
+    public function user()
+    {
+        return $this->hasMany(User::class);
+    }
+
     protected function rules() {
             return collect([
                 'type_name_en' => 'required|string|max:20',

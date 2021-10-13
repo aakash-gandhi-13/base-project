@@ -3,16 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Repositories\UserRoleRepository;
+use App\Repositories\UserRepository;
 use Illuminate\Http\Response;
 
-class UserRoleController extends Controller
+class UserController extends Controller
 {
-    protected $userRoleRepository;
+    protected $userRepository;
 
     public function __construct()
     {
-        $this->userRoleRepository = new UserRoleRepository();
+        $this->userRepository = new UserRepository();
     }
 
     /**
@@ -22,7 +22,15 @@ class UserRoleController extends Controller
      */
     public function index()
     {
-        $data = $this->userRoleRepository->all();
+        if(!$this->checkAccess('LIST_USER'))
+        {
+            response()->json(['message' => 'Unauthorized'], Response::HTTP_FORBIDDEN);
+        }
+
+        //use below line if you want to provide response directly form this method
+        //$this->checkAccess('LIST_USER');
+
+        $data = $this->userRepository->all();
         return response()->json($data, Response::HTTP_OK);
     }
 
@@ -33,8 +41,9 @@ class UserRoleController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        $data = $this->userRoleRepository->store($request->all());
+    {   
+        $this->checkAccess('CREATE_USER');
+        $data = $this->userRepository->store($request->all());
         return response()->json($data, Response::HTTP_CREATED);
     }
 
@@ -45,8 +54,9 @@ class UserRoleController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
-        $data = $this->userRoleRepository->find((int) $request['id']);
+    {   
+        $this->checkAccess('SHOW_USER');
+        $data = $this->userRepository->find((int) $request['id']);
         return response()->json($data, Response::HTTP_OK);
     }
 
@@ -59,7 +69,8 @@ class UserRoleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = $this->userRoleRepository->update($request->all(), $id);
+        $this->checkAccess('UPDATE_USER');
+        $data = $this->userRepository->update($request->all(), $id);
         return response()->json($data, Response::HTTP_OK);
     }
 
@@ -71,7 +82,8 @@ class UserRoleController extends Controller
      */
     public function destroy($id)
     {
-        $data = $this->userRoleRepository->destroy($id);
+        $this->checkAccess('DELETE_USER');
+        $data = $this->userRepository->destroy($id);
         return response()->json($data, Response::HTTP_NO_CONTENT);
     }
 }

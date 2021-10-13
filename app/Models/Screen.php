@@ -12,6 +12,11 @@ class Screen extends Model
     protected $fillable = ['screen_name_en', 'screen_name_jp', 'parent_id', 'screen_slug', 
     'user_id', 'created_at', 'updated_at'];
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     protected function rules() {
         return collect([
         'screen_name_en' => 'required|string|max:20',

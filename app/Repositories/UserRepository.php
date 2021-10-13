@@ -4,9 +4,9 @@ namespace App\Repositories;
 
 use Illuminate\Http\Request;
 use App\Interfaces\BaseRepositoryInterface;
-use App\Models\Screen;
+use App\Models\User;
 
-class ScreenRepository implements BaseRepositoryInterface 
+class UserRepository implements BaseRepositoryInterface 
 {
 
     /**
@@ -16,7 +16,7 @@ class ScreenRepository implements BaseRepositoryInterface
      */
     public function all()
     {
-        return Screen::all();
+        return User::all();
     }
 
     /**
@@ -26,7 +26,7 @@ class ScreenRepository implements BaseRepositoryInterface
      * @return App\Models\User
      */
     public function store($request){
-        return Screen::create($request);
+        return User::create($request);
     }
 
     /**
@@ -36,8 +36,8 @@ class ScreenRepository implements BaseRepositoryInterface
      * @return App\Models\User
      */
     public function show($id){
-        $screen = Screen::findOrFail($id);
-        return $screen;
+        $model = User::findOrFail($id);
+        return $model;
     }
 
     /**
@@ -48,11 +48,9 @@ class ScreenRepository implements BaseRepositoryInterface
      * @return App\Models\User
      */
     public function update($request, $id){
-        $screen = Screen::findOrFail($id);
-        //if there are multiple conditions use firstOrFail();
-        //ex. Screen::where('id', $id)->where('nice_name', 'training_create')->firstOrFail();
-        $screen->update($request);
-        return $screen;
+        $model = User::findOrFail($id);
+        $model->update($request);
+        return $model;
     }
 
     /**
@@ -62,8 +60,8 @@ class ScreenRepository implements BaseRepositoryInterface
      * @return App\Models\User
      */
     public function delete($id){
-        $screen = Screen::findOrFail($id);
-        $screen->delete();
-        return $screen;
+        $model = User::findOrFail($id);
+        $model->delete();
+        return $model;
     }
 }

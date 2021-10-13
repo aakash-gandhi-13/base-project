@@ -4,9 +4,9 @@ namespace App\Repositories;
 
 use Illuminate\Http\Request;
 use App\Interfaces\BaseRepositoryInterface;
-use App\Models\Screen;
+use App\Models\AccessControl;
 
-class ScreenRepository implements BaseRepositoryInterface 
+class AccessRepository implements BaseRepositoryInterface 
 {
 
     /**
@@ -16,7 +16,7 @@ class ScreenRepository implements BaseRepositoryInterface
      */
     public function all()
     {
-        return Screen::all();
+        return AccessControl::all();
     }
 
     /**
@@ -26,7 +26,7 @@ class ScreenRepository implements BaseRepositoryInterface
      * @return App\Models\User
      */
     public function store($request){
-        return Screen::create($request);
+        return AccessControl::create($request);
     }
 
     /**
@@ -36,8 +36,8 @@ class ScreenRepository implements BaseRepositoryInterface
      * @return App\Models\User
      */
     public function show($id){
-        $screen = Screen::findOrFail($id);
-        return $screen;
+        $accessControl = AccessControl::findOrFail($id);
+        return $accessControl;
     }
 
     /**
@@ -48,11 +48,11 @@ class ScreenRepository implements BaseRepositoryInterface
      * @return App\Models\User
      */
     public function update($request, $id){
-        $screen = Screen::findOrFail($id);
+        $accessControl = AccessControl::findOrFail($id);
         //if there are multiple conditions use firstOrFail();
-        //ex. Screen::where('id', $id)->where('nice_name', 'training_create')->firstOrFail();
-        $screen->update($request);
-        return $screen;
+        //ex. AccessControl::where('id', $id)->where('nice_name', 'training_create')->firstOrFail();
+        $accessControl->update($request);
+        return $accessControl;
     }
 
     /**
@@ -62,8 +62,8 @@ class ScreenRepository implements BaseRepositoryInterface
      * @return App\Models\User
      */
     public function delete($id){
-        $screen = Screen::findOrFail($id);
-        $screen->delete();
-        return $screen;
+        $accessControl = AccessControl::findOrFail($id);
+        $accessControl->delete();
+        return $accessControl;
     }
 }

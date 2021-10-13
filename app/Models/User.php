@@ -10,7 +10,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasFactory, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -18,9 +18,12 @@ class User extends Authenticatable
      * @var string[]
      */
     protected $fillable = [
-        'name',
+        'first_name',
+        'last_name',
         'email',
+        'phone',
         'password',
+        'user_role_id'
     ];
 
     /**
@@ -29,16 +32,21 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password',
-        'remember_token',
+        'password'
     ];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+    public function userAccessToken()
+    {
+        return $this->hasOne(UserAccessToken::class);
+    }
+
+    public function userRole()
+    {
+        return $this->belongsTo(UserRole::class);
+    }
+    
+    public function screens()
+    {
+        return $this->hasMany(Screen::class);
+    }
 }
