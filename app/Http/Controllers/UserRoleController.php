@@ -20,7 +20,7 @@ class UserRoleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {   
         if(!$this->checkAccess('LIST_USERROLE', $request))
         return response()->json(['message' => 'Unauthorized'], Response::HTTP_FORBIDDEN);
@@ -50,7 +50,7 @@ class UserRoleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {   
         if(!$this->checkAccess('SHOW_USERROLE', $request))
         return response()->json(['message' => 'Unauthorized'], Response::HTTP_FORBIDDEN);
@@ -81,7 +81,7 @@ class UserRoleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {   
         if(!$this->checkAccess('DELETE_USERROLE', $request))
         return response()->json(['message' => 'Unauthorized'], Response::HTTP_FORBIDDEN);

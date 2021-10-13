@@ -20,7 +20,7 @@ class ScreenController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         if(!$this->checkAccess('LIST_SCREEN', $request))
         return response()->json(['message' => 'Unauthorized'], Response::HTTP_FORBIDDEN);
@@ -50,7 +50,7 @@ class ScreenController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {   
         if(!$this->checkAccess('SHOW_SCREEN', $request))
         return response()->json(['message' => 'Unauthorized'], Response::HTTP_FORBIDDEN);
@@ -81,7 +81,7 @@ class ScreenController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {   
         if(!$this->checkAccess('DELETE_SCREEN', $request))
         return response()->json(['message' => 'Unauthorized'], Response::HTTP_FORBIDDEN);
