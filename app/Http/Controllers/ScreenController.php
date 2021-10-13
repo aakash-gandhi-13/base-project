@@ -86,7 +86,7 @@ class ScreenController extends Controller
         if(!$this->checkAccess('DELETE_SCREEN', $request))
         return response()->json(['message' => 'Unauthorized'], Response::HTTP_FORBIDDEN);
 
-        $data = $this->screenRepository->destroy($id);
+        $data = $this->screenRepository->delete($id);
         return response()->json($data, Response::HTTP_NO_CONTENT);
     }
 }

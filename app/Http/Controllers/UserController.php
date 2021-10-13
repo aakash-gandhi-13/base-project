@@ -90,7 +90,7 @@ class UserController extends Controller
         if(!$this->checkAccess('DELETE_USER', $request))
         return response()->json(['message' => 'Unauthorized'], Response::HTTP_FORBIDDEN);
         
-        $data = $this->userRepository->destroy($id);
+        $data = $this->userRepository->delete($id);
         return response()->json($data, Response::HTTP_NO_CONTENT);
     }
 }

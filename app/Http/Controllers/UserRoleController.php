@@ -86,7 +86,7 @@ class UserRoleController extends Controller
         if(!$this->checkAccess('DELETE_USERROLE', $request))
         return response()->json(['message' => 'Unauthorized'], Response::HTTP_FORBIDDEN);
         
-        $data = $this->userRoleRepository->destroy($id);
+        $data = $this->userRoleRepository->delete($id);
         return response()->json($data, Response::HTTP_NO_CONTENT);
     }
 }
