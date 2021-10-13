@@ -14,4 +14,9 @@ class AccessControl extends Model
 
     const TYPE_USER = "USER";
     const TYPE_USER_ROLE = "USER ROLE";
+
+    public function screen()
+    {
+        return $this->belongsTo(Screen::class);
+    }
 }

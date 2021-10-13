@@ -32,7 +32,8 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password'
+        'password',
+        'email_verified_at'
     ];
 
     public function userAccessToken()

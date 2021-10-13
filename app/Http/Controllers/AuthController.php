@@ -8,6 +8,8 @@ use Illuminate\Http\Response;
 use App\Models\User;
 use App\Models\UserRole;
 use App\Models\UserAccessToken;
+use App\Models\AccessControl;
+use App\Models\Screen;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
@@ -24,15 +26,24 @@ class AuthController extends Controller
         if($userCollection->count()==1)
         {
             $user = $userCollection->first();
-            $userAccessToken = UserAccessToken::where('user_id', $user->id)->firstOrNew();
-            $userAccessToken->token = hash('ripemd160', time());
-            $userAccessToken->expired_at = now()->addDays(5);
-            $userAccessToken->user_id = $user->id;
-            $userAccessToken->save();
-
+            
             if(Hash::check($request->password, $user->password))
             {
-                return response()->json(['user' => $user, 'token' => $userAccessToken], Response::HTTP_OK);
+                $userAccessToken = UserAccessToken::where('user_id', $user->id)->firstOrNew();
+                $userAccessToken->token = hash('ripemd160', time());
+                $userAccessToken->expired_at = now()->addDays(5);
+                $userAccessToken->user_id = $user->id;
+                $userAccessToken->save();
+
+                $accessControlScreens = AccessControl::with('screen:screen_slug')->where('access_type', AccessControl::TYPE_USER_ROLE)
+                                        ->where('access_id', $user->user_role_id)->where('can_access', true)->pluck('screen_id');
+                $screens = [];
+                if($accessControlScreens->count() >0) 
+                {
+                    $screens = Screen::whereIn('id', $accessControlScreens)->pluck('screen_slug');    
+                }                       
+                
+                return response()->json(['user' => $user, 'token' => $userAccessToken, 'access' => $screens], Response::HTTP_OK);
             }
         }
         return response()->json(['message' => 'Invalid Credentials'], Response::HTTP_UNAUTHORIZED);

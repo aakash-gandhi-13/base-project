@@ -17,6 +17,11 @@ class Screen extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function accessControls()
+    {
+        return $this->hasMany(AccessControl::class);
+    }
+
     protected function rules() {
         return collect([
         'screen_name_en' => 'required|string|max:20',
