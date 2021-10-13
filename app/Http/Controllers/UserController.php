@@ -20,12 +20,11 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        if(!$this->checkAccess('LIST_USER'))
-        {
-            response()->json(['message' => 'Unauthorized'], Response::HTTP_FORBIDDEN);
-        }
+        if(!$this->checkAccess('LIST_USER', $request))
+        return response()->json(['message' => 'Unauthorized'], Response::HTTP_FORBIDDEN);
+        
 
         //use below line if you want to provide response directly form this method
         //$this->checkAccess('LIST_USER');
@@ -42,7 +41,9 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {   
-        $this->checkAccess('CREATE_USER');
+        if(!$this->checkAccess('CREATE_USER', $request))
+        return response()->json(['message' => 'Unauthorized'], Response::HTTP_FORBIDDEN);
+        
         $data = $this->userRepository->store($request->all());
         return response()->json($data, Response::HTTP_CREATED);
     }
@@ -55,7 +56,9 @@ class UserController extends Controller
      */
     public function show($id)
     {   
-        $this->checkAccess('SHOW_USER');
+        if(!$this->checkAccess('SHOW_USER', $request))
+        return response()->json(['message' => 'Unauthorized'], Response::HTTP_FORBIDDEN);
+        
         $data = $this->userRepository->find((int) $request['id']);
         return response()->json($data, Response::HTTP_OK);
     }
@@ -69,7 +72,9 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->checkAccess('UPDATE_USER');
+        if(!$this->checkAccess('UPDATE_USER', $request))
+        return response()->json(['message' => 'Unauthorized'], Response::HTTP_FORBIDDEN);
+        
         $data = $this->userRepository->update($request->all(), $id);
         return response()->json($data, Response::HTTP_OK);
     }
@@ -82,7 +87,9 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $this->checkAccess('DELETE_USER');
+        if(!$this->checkAccess('DELETE_USER', $request))
+        return response()->json(['message' => 'Unauthorized'], Response::HTTP_FORBIDDEN);
+        
         $data = $this->userRepository->destroy($id);
         return response()->json($data, Response::HTTP_NO_CONTENT);
     }

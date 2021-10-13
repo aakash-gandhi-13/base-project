@@ -21,7 +21,10 @@ class UserRoleController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
+    {   
+        if(!$this->checkAccess('LIST_USERROLE', $request))
+        return response()->json(['message' => 'Unauthorized'], Response::HTTP_FORBIDDEN);
+
         $data = $this->userRoleRepository->all();
         return response()->json($data, Response::HTTP_OK);
     }
@@ -34,6 +37,9 @@ class UserRoleController extends Controller
      */
     public function store(Request $request)
     {
+        if(!$this->checkAccess('CREATE_USERROLE', $request))
+        return response()->json(['message' => 'Unauthorized'], Response::HTTP_FORBIDDEN);
+
         $data = $this->userRoleRepository->store($request->all());
         return response()->json($data, Response::HTTP_CREATED);
     }
@@ -45,7 +51,10 @@ class UserRoleController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
+    {   
+        if(!$this->checkAccess('SHOW_USERROLE', $request))
+        return response()->json(['message' => 'Unauthorized'], Response::HTTP_FORBIDDEN);
+
         $data = $this->userRoleRepository->find((int) $request['id']);
         return response()->json($data, Response::HTTP_OK);
     }
@@ -58,7 +67,10 @@ class UserRoleController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
+    {   
+        if(!$this->checkAccess('UPDATE_USERROLE', $request))
+        return response()->json(['message' => 'Unauthorized'], Response::HTTP_FORBIDDEN);
+
         $data = $this->userRoleRepository->update($request->all(), $id);
         return response()->json($data, Response::HTTP_OK);
     }
@@ -70,7 +82,10 @@ class UserRoleController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {
+    {   
+        if(!$this->checkAccess('DELETE_USERROLE', $request))
+        return response()->json(['message' => 'Unauthorized'], Response::HTTP_FORBIDDEN);
+        
         $data = $this->userRoleRepository->destroy($id);
         return response()->json($data, Response::HTTP_NO_CONTENT);
     }

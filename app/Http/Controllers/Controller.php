@@ -18,7 +18,7 @@ class Controller extends BaseController
 
     protected function checkAccess($screenSlug, $request)
     {
-        $userAccessToken = UserAccessToken::where('token', $request->header('X-Token', 'XYZ'))
+        $userAccessToken = UserAccessToken::where('token', $request->header('X-TOKEN', 'XYZ'))
                            ->firstOrFail();
         $user = $userAccessToken->user;
         //$userRole = $user->userRole;

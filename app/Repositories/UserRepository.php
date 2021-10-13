@@ -64,4 +64,8 @@ class UserRepository implements BaseRepositoryInterface
         $model->delete();
         return $model;
     }
+
+    public function extraMethod() {
+        echo 'hello';
+    }
 }

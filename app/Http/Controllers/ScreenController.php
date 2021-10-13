@@ -22,6 +22,9 @@ class ScreenController extends Controller
      */
     public function index()
     {
+        if(!$this->checkAccess('LIST_SCREEN', $request))
+        return response()->json(['message' => 'Unauthorized'], Response::HTTP_FORBIDDEN);
+
         $data = $this->screenRepository->all();
         return response()->json($data, Response::HTTP_OK);
     }
@@ -33,7 +36,10 @@ class ScreenController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {   
+        if(!$this->checkAccess('CREATE_SCREEN', $request))
+        return response()->json(['message' => 'Unauthorized'], Response::HTTP_FORBIDDEN);
+
         $data = $this->screenRepository->store($request->all());
         return response()->json($data, Response::HTTP_CREATED);
     }
@@ -45,7 +51,10 @@ class ScreenController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
+    {   
+        if(!$this->checkAccess('SHOW_SCREEN', $request))
+        return response()->json(['message' => 'Unauthorized'], Response::HTTP_FORBIDDEN);
+
         $data = $this->screenRepository->find((int) $request['id']);
         return response()->json($data, Response::HTTP_OK);
     }
@@ -58,7 +67,10 @@ class ScreenController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
+    {   
+        if(!$this->checkAccess('UPDATE_SCREEN', $request))
+        return response()->json(['message' => 'Unauthorized'], Response::HTTP_FORBIDDEN);
+
         $data = $this->screenRepository->update($request->all(), $id);
         return response()->json($data, Response::HTTP_OK);
     }
@@ -70,7 +82,10 @@ class ScreenController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {
+    {   
+        if(!$this->checkAccess('DELETE_SCREEN', $request))
+        return response()->json(['message' => 'Unauthorized'], Response::HTTP_FORBIDDEN);
+
         $data = $this->screenRepository->destroy($id);
         return response()->json($data, Response::HTTP_NO_CONTENT);
     }

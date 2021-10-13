@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Repositories\AccessRepository;
 use Illuminate\Http\Response;
 
-class ScreenController extends Controller
+class AccessController extends Controller
 {
     protected $accessRepository;
 
@@ -21,7 +21,10 @@ class ScreenController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
+    {   
+        if(!$this->checkAccess('LIST_ACL', $request))
+        return response()->json(['message' => 'Unauthorized'], Response::HTTP_FORBIDDEN);
+
         $data = $this->accessRepository->all();
         return response()->json($data, Response::HTTP_OK);
     }
@@ -33,7 +36,10 @@ class ScreenController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {   
+        if(!$this->checkAccess('CREATE_ACL', $request))
+        return response()->json(['message' => 'Unauthorized'], Response::HTTP_FORBIDDEN);
+
         $data = $this->accessRepository->store($request->all());
         return response()->json($data, Response::HTTP_CREATED);
     }
@@ -45,7 +51,10 @@ class ScreenController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
+    {   
+        if(!$this->checkAccess('SHOW_ACL', $request))
+        return response()->json(['message' => 'Unauthorized'], Response::HTTP_FORBIDDEN);
+
         $data = $this->accessRepository->find((int) $request['id']);
         return response()->json($data, Response::HTTP_OK);
     }
@@ -58,7 +67,10 @@ class ScreenController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
+    {   
+        if(!$this->checkAccess('UPDATE_ACL', $request))
+        return response()->json(['message' => 'Unauthorized'], Response::HTTP_FORBIDDEN);
+
         $data = $this->accessRepository->update($request->all(), $id);
         return response()->json($data, Response::HTTP_OK);
     }
@@ -70,7 +82,10 @@ class ScreenController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {
+    {   
+        if(!$this->checkAccess('DELETE_ACL', $request))
+        return response()->json(['message' => 'Unauthorized'], Response::HTTP_FORBIDDEN);
+        
         $data = $this->accessRepository->destroy($id);
         return response()->json($data, Response::HTTP_NO_CONTENT);
     }
